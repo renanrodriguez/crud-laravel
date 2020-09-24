@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('cabecalho')
-Adicionar Série
+<h2 class="text-secondary">Editar usuário</h2>
 @endsection
 
 @section('conteudo')
@@ -29,6 +29,8 @@ Adicionar Série
         <p class="card-body"><?= date("d/m/Y", strtotime($usuario->data_criacao)) ?></p>
     </div>
     <button type="submit" class="btn btn-primary">Editar</button>
+    <a href="/usuarios" class="btn btn-light">Cancelar</a>
+
 </form>
 
 @endsection

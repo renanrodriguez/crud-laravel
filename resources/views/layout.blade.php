@@ -31,15 +31,23 @@ $(function() {
     $('form[name="formExcluirUsuario"]').submit(function(event) {
         event.preventDefault();
 
-        $.ajax({
-            url: $(this).attr('action'),
-            type: "DELETE",
-            data: $(this).serialize(),
-            dataType: 'json',
-            success: function(response) {
-                console.log(response);
-            }
-        });
+        if (confirm("Você tem certeza que deseja excluir esse usuário?")) {
+
+            let idUser = $(this).attr('data-id');
+            $.ajax({
+                url: $(this).attr('action'),
+                type: "DELETE",
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function(response) {
+                    console.log(response);
+                }
+            });
+
+            $(`tr[data-id=${idUser}]`).remove();
+        }
+
+
     });
 
     $('form[name="formEditarUsuario"]').submit(function(event) {
@@ -60,13 +68,13 @@ $(function() {
 </script>
 
 <body>
-    <div class="container">
+    <div class="container-lg">
         <div class="card">
-            <h1 class="card-header">Usuários</h1>
+            <h1 class="card-header text-info">CRUD Usuários</h1>
             <div class="card-header">
                 <p>@yield('cabecalho')</p>
             </div>
-            <div class="card-body">
+            <div class="card-body overflow-auto">
                 @yield('conteudo')
 
             </div>

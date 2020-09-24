@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('cabecalho')
-Adicionar Série
+<h2 class="text-secondary">Adicionar usuário</h2>
 @endsection
 
 @section('conteudo')
