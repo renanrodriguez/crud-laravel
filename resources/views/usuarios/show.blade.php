@@ -6,6 +6,8 @@
 
 @section('conteudo')
 
+<div class="messageResponse alert" role="alert"></div>
+
 <form method="POST" name="formEditarUsuario">
     @csrf
     <div class="form-group">

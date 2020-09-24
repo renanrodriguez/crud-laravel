@@ -21,10 +21,7 @@
         </tr>
     </thead>
     <tbody>
-        <?php if($usuarios->isEmpty()){ ?>
-        <tr>Nenhum usuário cadastrado</tr>
-        <?php }
-        foreach ($usuarios as $key => $usuario){ ?>
+        <?php foreach ($usuarios as $key => $usuario){ ?>
         <tr data-id=<?= $usuario->id?>>
             <td><?=$usuario->nome?> </td>
             <td><?=$usuario->email?> </td>
@@ -50,6 +47,4 @@
     </tbody>
 </table>
 </div>
-
-
 @endsection

@@ -16,16 +16,56 @@
 $(function() {
     $('form[name="formAdicionarUsuario"]').submit(function(event) {
         event.preventDefault();
-
-        $.ajax({
-            url: $(this).attr('action'),
-            type: "POST",
-            data: $(this).serialize(),
-            dataType: 'json',
-            success: function(response) {
-                console.log(response);
+    }).validate({
+        rules: {
+            nome: {
+                required: true
+            },
+            email: {
+                required: true,
+                email: true
+            },
+            senha: {
+                required: true,
+                minlength: 8
             }
-        });
+        },
+        messages: {
+            nome: {
+                required: "O campo <span>Nome</span> é obrigátório",
+            },
+            email: {
+                required: "O campo <span>Email</span> é obrigátório",
+                email: "O campo <u>Email</u> só aceita emails válidos"
+            },
+            senha: {
+                required: "O campo <span>Senha</span> é obrigátório",
+                minlength: "A <span>Senha</span> precisa conter pelo menos 8 caracteres"
+            }
+        },
+        errorClass: "text-danger",
+
+        highlight: function(element, errorClass) {
+            $(element).fadeOut(function() {
+                $(element).fadeIn();
+            });
+        },
+        submitHandler: function(form) {
+            $.ajax({
+                url: $(form).attr('action'),
+                type: "POST",
+                data: $(form).serialize(),
+                dataType: 'json',
+                success: function(response) {
+                    $('.messageResponse').empty();
+                    if (response.success === true) {
+                        $('.messageResponse').append(`<p class="alert-success alert">${response.message}</p>`);
+                    } else {
+                        $('.messageResponse').append(`<p class="alert-danger alert">${response.message}</p>`);
+                    }
+                }
+            });
+        }
     });
 
     $('form[name="formExcluirUsuario"]').submit(function(event) {
@@ -52,17 +92,57 @@ $(function() {
 
     $('form[name="formEditarUsuario"]').submit(function(event) {
         event.preventDefault();
-
-
-        $.ajax({
-            url: $(this).attr('action'),
-            type: "PUT",
-            data: $(this).serialize(),
-            dataType: 'json',
-            success: function(response) {
-                console.log(response);
+    }).validate({
+        rules: {
+            nome: {
+                required: true
+            },
+            email: {
+                required: true,
+                email: true
+            },
+            senha: {
+                required: true,
+                minlength: 8
             }
-        });
+        },
+        messages: {
+            nome: {
+                required: "O campo <span>Nome</span> é obrigátório",
+            },
+            email: {
+                required: "O campo <span>Email</span> é obrigátório",
+                email: "O campo <u>Email</u> só aceita emails válidos"
+            },
+            senha: {
+                required: "O campo <span>Senha</span> é obrigátório",
+                minlength: "A <span>Senha</span> precisa conter pelo menos 8 caracteres"
+            }
+        },
+        errorClass: "text-danger",
+
+        highlight: function(element, errorClass) {
+            $(element).fadeOut(function() {
+                $(element).fadeIn();
+            });
+        },
+        submitHandler: function(form) {
+            console.log(form);
+            $.ajax({
+                url: $(form).attr('action'),
+                type: "PUT",
+                data: $(form).serialize(),
+                dataType: 'json',
+                success: function(response) {
+                    $('.messageResponse').empty();
+                    if (response.success === true) {
+                        $('.messageResponse').append(`<p class="alert-success alert">${response.message}</p>`);
+                    } else {
+                        $('.messageResponse').append(`<p class="alert-danger alert">${response.message}</p>`);
+                    }
+                }
+            });
+        }
     });
 });
 </script>
@@ -70,7 +150,7 @@ $(function() {
 <body>
     <div class="container-lg">
         <div class="card">
-            <h1 class="card-header text-info">CRUD Usuários</h1>
+            <h1 class="card-header"><a href="/usuarios" class="text-dark">CRUD Usuários</a></h1>
             <div class="card-header">
                 <p>@yield('cabecalho')</p>
             </div>
@@ -80,9 +160,7 @@ $(function() {
             </div>
         </div>
     </div>
-
 </body>
-
 
 
 </html>
