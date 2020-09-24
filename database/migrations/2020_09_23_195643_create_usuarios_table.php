@@ -18,7 +18,7 @@ class CreateUsuariosTable extends Migration
             $table->string('nome', 255);
             $table->string('email', 255);
             $table->string('senha', 255);
-            $table->string('data_nascimento', 10);
+            $table->string('data_nascimento', 10)->nullable();
             $table->timestamp('data_criacao', 0);
         });
     }
